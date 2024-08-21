@@ -4,14 +4,14 @@ import (
 	"database/sql"
 	"log"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "modernc.org/sqlite"
 )
 
 var DB *sql.DB
 
 func Init() {
 	var err error
-	DB, err = sql.Open("sqlite3", "./data/yt-nexus.db?_timeout=10000")
+	DB, err = sql.Open("sqlite", "./data/yt-nexus.db?_timeout=10000")
 	if err != nil {
 		log.Fatal(err)
 	}
