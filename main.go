@@ -22,7 +22,7 @@ func main() {
 
 	ytNexus := r.Group("/yt-nexus")
 	{
-		ytNexus.POST("/dictionary", handlers.AddWord)
+		ytNexus.POST("/dictionary", handlers.AddWords)
 		ytNexus.POST("/channel", handlers.AddChannel)
 		ytNexus.POST("/video", handlers.AddVideo)
 		ytNexus.GET("/channel/:channel_name/common-words", handlers.GetChannelCommonWords)
