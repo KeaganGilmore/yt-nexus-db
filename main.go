@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"yt-nexus-db/database"
 	"yt-nexus-db/handlers"
@@ -10,6 +11,14 @@ func main() {
 	database.Init()
 
 	r := gin.Default()
+
+	// Set up CORS middleware
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"}, // Allows all origins. Adjust as needed for security.
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		AllowCredentials: true,
+	}))
 
 	ytNexus := r.Group("/yt-nexus")
 	{
