@@ -114,3 +114,13 @@ func SearchAcrossVideos(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"videos": videoWordCounts})
 }
+
+// GetAllVideoIDs handles the endpoint for retrieving all video IDs.
+func GetAllVideoIDs(c *gin.Context) {
+	videoIDs, err := models.FetchAllVideoIDs()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"video_ids": videoIDs})
+}

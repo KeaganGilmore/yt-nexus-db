@@ -1,10 +1,9 @@
 package handlers
 
 import (
-	"database/sql"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"yt-nexus-db/database"
+	"yt-nexus-db/models"
 )
 
 func AddWords(c *gin.Context) {
@@ -14,14 +13,12 @@ func AddWords(c *gin.Context) {
 		return
 	}
 
-	// Create a channel to collect the word IDs
 	wordIDs := make(chan int, len(words))
 	errChan := make(chan error, len(words))
 
-	// Process each word asynchronously
 	for _, word := range words {
 		go func(w string) {
-			id, err := addWordToDictionary(w)
+			id, err := models.AddWordToDictionary(w) // Use the exported function here
 			if err != nil {
 				errChan <- err
 			} else {
@@ -30,7 +27,6 @@ func AddWords(c *gin.Context) {
 		}(word)
 	}
 
-	// Collect the results
 	var successfulIDs []int
 	var errors []error
 	for i := 0; i < len(words); i++ {
@@ -52,23 +48,4 @@ func AddWords(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"word_ids": successfulIDs})
-}
-
-func addWordToDictionary(word string) (int, error) {
-	var wordID int
-	err := database.DB.QueryRow("SELECT id FROM dictionary WHERE word = ?", word).Scan(&wordID)
-	if err == sql.ErrNoRows {
-		res, err := database.DB.Exec("INSERT INTO dictionary (word) VALUES (?)", word)
-		if err != nil {
-			return 0, err
-		}
-		id, err := res.LastInsertId()
-		if err != nil {
-			return 0, err
-		}
-		wordID = int(id)
-	} else if err != nil {
-		return 0, err
-	}
-	return wordID, nil
 }

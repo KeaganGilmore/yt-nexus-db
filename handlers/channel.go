@@ -25,3 +25,13 @@ func AddChannel(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"channel_id": channelID})
 }
+
+// GetAllChannels handles the endpoint for retrieving all channels.
+func GetAllChannels(c *gin.Context) {
+	channels, err := models.FetchAllChannels()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"channels": channels})
+}

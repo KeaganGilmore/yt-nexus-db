@@ -28,3 +28,25 @@ func GetOrCreateChannel(channelName string) (int, error) {
 	}
 	return channelID, nil
 }
+
+// FetchAllChannels retrieves all channels from the youtube_channels table.
+func FetchAllChannels() ([]string, error) {
+	query := `SELECT channel_name FROM youtube_channels`
+
+	rows, err := database.DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var channels []string
+	for rows.Next() {
+		var channelName string
+		if err := rows.Scan(&channelName); err != nil {
+			return nil, err
+		}
+		channels = append(channels, channelName)
+	}
+
+	return channels, nil
+}

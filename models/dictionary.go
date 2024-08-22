@@ -5,6 +5,7 @@ import (
 	"yt-nexus-db/database"
 )
 
+// AddWordToDictionary is exported so it can be accessed from other packages.
 func AddWordToDictionary(word string) (int, error) {
 	var wordID int
 	err := database.DB.QueryRow("SELECT id FROM dictionary WHERE word = ?", word).Scan(&wordID)

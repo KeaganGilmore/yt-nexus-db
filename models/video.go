@@ -235,3 +235,25 @@ func FetchVideosWithKeywordAcrossDB(keyword string) ([]VideoWordCount, error) {
 
 	return videoWordCounts, nil
 }
+
+// FetchAllVideoIDs retrieves all video IDs from the video_details table.
+func FetchAllVideoIDs() ([]string, error) {
+	query := `SELECT video_id FROM video_details`
+
+	rows, err := database.DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var videoIDs []string
+	for rows.Next() {
+		var videoID string
+		if err := rows.Scan(&videoID); err != nil {
+			return nil, err
+		}
+		videoIDs = append(videoIDs, videoID)
+	}
+
+	return videoIDs, nil
+}

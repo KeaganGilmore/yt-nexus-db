@@ -31,6 +31,10 @@ func main() {
 		ytNexus.GET("/search", handlers.SearchAcrossDB)
 		ytNexus.POST("/multi-channel-search", handlers.SearchAcrossChannels)
 		ytNexus.POST("/multi-video-search", handlers.SearchAcrossVideos)
+		ytNexus.GET("/words", handlers.GetAllWords)
+		ytNexus.GET("/channels", handlers.GetAllChannels)
+		ytNexus.GET("/video-ids", handlers.GetAllVideoIDs)
+		ytNexus.GET("/all-data", handlers.GetAllData)
 	}
 
 	r.Run(":8110")

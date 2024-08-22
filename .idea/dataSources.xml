@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="yt-nexus" uuid="9efc38de-5a93-4ea4-8725-68c3cf7812e3">
+    <data-source source="LOCAL" name="yt-nexus" uuid="074078f0-4e54-466f-a26b-bcb4e9a353c3">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:D:\Careers\SoftwareDev_Contracting\yt-nexus-db\yt-nexus.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:D:\Careers\SoftwareDev_Contracting\yt-nexus-db\data\yt-nexus.db</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
       </jdbc-additional-properties>
