@@ -1,0 +1,24 @@
+# Copyright DWJ 2024.
+# Distributed under the Boost Software License, Version 1.0.
+# https://www.boost.org/LICENSE_1_0.txt
+
+# Made with gpt-4o-mini
+
+services:
+  yt-nexus-db:
+    image: ghcr.io/${GITHUB_USER:-user}/yt-nexus-db:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8110:8110"
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ./data:/root/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://yt-nexus-db:8110/yt-nexus/search"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
