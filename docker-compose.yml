@@ -12,8 +12,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8110:8110"
-    env_file:
-      - .env
     restart: unless-stopped
     volumes:
       - ./data:/root/data
